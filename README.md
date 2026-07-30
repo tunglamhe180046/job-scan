@@ -13,6 +13,7 @@ It is designed as a **human-in-the-loop** workflow: Playwright opens a visible b
 - Scores roles against a candidate profile and preserves prior application status in reports.
 - Generates tailored cover-letter drafts and can fill supported application forms.
 - Leaves the final **Apply** action to the user.
+- Uses an agent-ready workflow that can incorporate Codex, Claude, and Antigravity as reviewed assistants.
 
 ## Tech Stack
 
@@ -96,6 +97,17 @@ The matcher reads `reports/all_companies_merged.xlsx` (or `all_companies_merged.
 - **Company-site mode**: finds a careers page on the official company website and extracts job links.
 
 Roles receive a 1–10 fit score from the configured profile. The current rules prioritize AI workflow, Java/React, .NET, mobile/Unity, Japanese-language, and junior/fresher opportunities while down-ranking internships and senior/lead roles. Review the generated report before applying; scoring is guidance, not a hiring recommendation.
+
+## Agent-Assisted Extension
+
+Job Scan can be extended with external AI agents such as **Codex**, **Claude**, and **Antigravity** to support the workflow after the tool has collected data. Suitable review tasks include:
+
+- refining job-fit reasoning against a candidate profile;
+- summarizing or quality-checking generated reports;
+- drafting and reviewing tailored application materials; and
+- improving scraper selectors, test coverage, documentation, and workflow rules.
+
+The repository does not ship built-in API clients or automated CLI calls for these agents. Instead, the recommended pattern is to run the chosen agent in its own authorized environment, provide only the minimum redacted context needed for the task, review its output, and keep the human responsible for the final decision and submission. Do not store agent credentials, browser sessions, or private application data in the repository.
 
 ## Responsible Use
 
