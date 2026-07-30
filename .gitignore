@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments and IDE settings
+venv/
+.venv/
+.idea/
+.vscode/
+
+# Local browser profile and generated application output
+user_data/
+reports/
+*.xlsx
+*.csv
+temp_*
+backup_*
+
+# Debug captures and local agent instructions
+debug_*
+.agents/
+
+# Nested, independently versioned CV project
+My-CV/
