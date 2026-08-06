@@ -10,6 +10,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskPr
 
 from scraper import ITViecScraper
 from topcv_scraper import TopCVScraper
+from topdev_scraper import TopDevScraper
 from job_matcher import JobMatcher
 from apply_assistant import ApplyAssistant
 
@@ -219,6 +220,58 @@ def run_apply_assistant():
     assistant = ApplyAssistant()
     assistant.run_assistant()
 
+def run_topdev_job_scan():
+    """Read a TopDev/Saramin search URL and verify job availability page by page."""
+    scraper = TopDevScraper()
+    default_url = (
+        "https://topdev.vn/viec-lam/tim-kiem?job_categories_ids="
+        "2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C10%2C11%2C12%2C13%2C67&keyword=&region_ids=01"
+    )
+    listing_url = Prompt.ask("[bold]Enter TopDev/Saramin search URL[/bold]", default=default_url)
+    pages_to_scan = Prompt.ask("[bold]Number of TopDev pages to read[/bold]", default="6")
+    try:
+        pages_to_scan = max(1, int(pages_to_scan))
+    except ValueError:
+        pages_to_scan = 6
+
+    try:
+        scraper.start_browser()
+        scraper.wait_for_user(
+            "Wait until the TopDev job cards are fully visible. If a CAPTCHA appears, complete it in the browser first."
+        )
+        raw_jobs = scraper.extract_jobs_from_pages(
+            listing_url, pages=pages_to_scan
+        )
+        if not raw_jobs:
+            console.print("[bold red]No TopDev job links were found on the rendered page.[/bold red]")
+            return
+
+        console.print(
+            f"[green]Collected {len(raw_jobs)} unique jobs from {pages_to_scan} pages "
+            f"(TopDev API reports {getattr(scraper, 'api_total', '?')} matching jobs in total).[/green]"
+        )
+
+        verified_jobs = scraper.verify_jobs(raw_jobs)
+        os.makedirs("reports", exist_ok=True)
+        output_path = os.path.join(
+            "reports", f"topdev_jobs_verified_{time.strftime('%Y-%m-%d')}.xlsx"
+        )
+        safe_save_excel(pd.DataFrame(verified_jobs), output_path)
+
+        active_jobs = [job for job in verified_jobs if job["candidate_rule"] == "eligible"]
+        table = Table(title="Verified TopDev jobs eligible for review")
+        table.add_column("Title", style="cyan")
+        table.add_column("Days left", justify="right")
+        table.add_column("Link", style="green")
+        for job in active_jobs[:20]:
+            table.add_row(job["title"], str(job["days_left"] or "?"), job["link"])
+        console.print(table)
+        console.print(
+            f"[green]Verified {len(verified_jobs)} jobs; {len(active_jobs)} are active and within the <=2-year rule. Saved: {output_path}[/green]"
+        )
+    finally:
+        scraper.close_browser()
+
 def main():
     print_banner()
     
@@ -228,13 +281,22 @@ def main():
     console.print("2. Cào danh sách công ty trên TopCV.vn")
     console.print("3. Quét website công ty & Lọc job phù hợp với CV")
     console.print("4. Hỗ trợ ứng tuyển bán tự động (Apply Assistant)")
-    choice = Prompt.ask("Nhập lựa chọn (1, 2, 3 hoặc 4)", choices=["1", "2", "3", "4"], default="3")
+    console.print("5. Quét TopDev/Saramin và kiểm tra hạn từng JD")
+    console.print("6. Xuất & Cập nhật Web HTML Dashboard (Hỗ trợ Tiếng Việt & Tiếng Anh)")
+    choice = Prompt.ask("Nhập lựa chọn (1, 2, 3, 4, 5 hoặc 6)", choices=["1", "2", "3", "4", "5", "6"], default="3")
     
     if choice == "3":
         run_job_matching()
         return
     elif choice == "4":
         run_apply_assistant()
+        return
+    elif choice == "5":
+        run_topdev_job_scan()
+        return
+    elif choice == "6":
+        from generate_dashboard import generate_html_dashboard
+        generate_html_dashboard()
         return
         
     # Các chức năng 1 và 2 (Cào danh sách)

@@ -1,6 +1,6 @@
 # Job Scan
 
-An interactive Python toolkit for collecting company information from ITviec and TopCV, discovering company websites, matching vacancies against a configurable candidate profile, and assisting with job-application preparation.
+An interactive Python toolkit for collecting company information from ITviec and TopCV, verifying TopDev/Saramin job availability, discovering company websites, matching vacancies against a configurable candidate profile, and assisting with job-application preparation.
 
 It is designed as a **human-in-the-loop** workflow: Playwright opens a visible browser so that the user can handle CAPTCHA, inspect pages, and make the final submission decision themselves.
 
@@ -10,6 +10,7 @@ It is designed as a **human-in-the-loop** workflow: Playwright opens a visible b
 - Extracts candidate official websites and removes recurring platform/system domains.
 - Exports company data to Excel or CSV.
 - Finds vacancies from ITviec/TopCV company profiles or a company's own careers page.
+- Reads a rendered TopDev/Saramin search page and re-opens every job detail page before reporting it as active.
 - Scores roles against a candidate profile and preserves prior application status in reports.
 - Generates tailored cover-letter drafts and can fill supported application forms.
 - Leaves the final **Apply** action to the user.
@@ -76,6 +77,7 @@ The menu provides four workflows:
 
 1. **ITviec company discovery** — collects companies from an ITviec results page and identifies candidate official websites.
 2. **TopCV company discovery** — performs the equivalent workflow for TopCV.
+3. **TopDev/Saramin verified job scan** — reads the platform's paginated job-data endpoint (six pages by default), deduplicates job links, opens each detail page, and writes `active`, `expired`, `unknown`, or `needs_manual_check` to a dated workbook. Only jobs with a visible apply action are marked active; this prevents stale search snippets from being reported as open.
 3. **Job matching** — reads the merged company report, collects vacancies, scores suitable roles, and saves `reports/matched_jobs_report.xlsx`.
 4. **Apply Assistant** — prepares a tailored cover letter and fills supported fields. The user reviews the content and submits the application manually.
 
@@ -97,6 +99,12 @@ The matcher reads `reports/all_companies_merged.xlsx` (or `all_companies_merged.
 - **Company-site mode**: finds a careers page on the official company website and extracts job links.
 
 Roles receive a 1–10 fit score from the configured profile. The current rules prioritize AI workflow, Java/React, .NET, mobile/Unity, Japanese-language, and junior/fresher opportunities while down-ranking internships and senior/lead roles. Review the generated report before applying; scoring is guidance, not a hiring recommendation.
+
+### TopCV Review and Application Playbook
+
+For the candidate-specific workflow used to review TopCV exports, filter sales-heavy results, prioritize roles, verify local application-status data, and write honest tailored cover letters, see [.codex/job-search-playbook.md](.codex/job-search-playbook.md).
+
+The playbook is deliberately separate from the application code: it holds local working guidance and report conventions, not credentials, browser data, or submitted application content.
 
 ## Agent-Assisted Extension
 

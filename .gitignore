@@ -24,6 +24,8 @@ backup_*
 # Debug captures and local agent instructions
 debug_*
 .agents/
+.claude/
+.codex/
 
 # Nested, independently versioned CV project
 My-CV/
