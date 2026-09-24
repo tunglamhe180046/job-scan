@@ -93,14 +93,14 @@ class ApplyAssistant:
         title_lower = title.lower()
         
         # 1. Mẫu AI
-        if "ai" in title_lower or "workflow" in title_lower or "prompt" in title_lower:
+        if any(k in title_lower for k in ["ai", "workflow", "prompt", "agent", "llm", "rag"]):
             return f"""Dear Hiring Manager,
 
-I am very excited to apply for the {title} position at {company_name}. With my strong orientation in AI-assisted development and hands-on experience in prompt engineering and designing AI workflows, I believe I can bring immediate value to your team.
+I am very excited to apply for the {title} position at {company_name}. As an AI Agent Engineer at Minh Bach JSC specializing in enterprise digital transformation and full-stack software development, I possess deep technical expertise in Python, LLMs, RAG, Multimodal Vision pipelines, Agent Memory Management (Short-term/Long-term), and Skill Orchestration (Waterfall Skills architecture).
 
-In my recent projects, I have extensively utilized AI tools to optimize coding efficiency and design workflow pipelines, allowing me to build robust applications with speed and high quality. Additionally, my background as a Software Engineer graduate from FPT University (December 2025) has equipped me with solid foundations in Java, ReactJS, and .NET.
+In my recent work, I built Python and Node.js MCP tools enabling LLMs (Claude, Gemini) to parse visual documents and perform in-place document manipulation on complex Office files without data loss, and developed full-stack multi-agent systems featuring granular RBAC and clean system architecture. Additionally, my Software Engineering degree from FPT University equips me with strong foundations in Python, Node.js, Java (Spring Boot), ReactJS, and .NET.
 
-I am confident that my unique combination of software development skills and AI workflow experience makes me a strong fit for {company_name}. Thank you for your time and consideration.
+I am confident that my practical experience in AI Agent engineering, RAG, and workflow optimization will allow me to create immediate impact at {company_name}. Thank you for your time and consideration.
 
 Sincerely,
 Nguyen Tung Lam"""
@@ -137,7 +137,7 @@ Nguyen Tung Lam"""
 
 I am very interested in the {title} position at {company_name}. With solid experience in Java (Spring Boot), ReactJS, and C# (.NET), I am confident in my ability to contribute to your engineering team immediately.
 
-For my capstone project, I built a comprehensive dormitory management system (DORM) using Java Spring Boot and ReactJS, handling complex booking and billing transactions. I also completed an internship at NIC Global where I developed C#/.NET business applications. I am passionate about writing clean, maintainable code and collaborating in agile teams.
+Throughout my software engineering coursework and enterprise projects, I have developed scalable web applications using Java Spring Boot and ReactJS, designing RESTful APIs and handling transactional business logic. I also completed an internship at NIC Global where I developed C#/.NET enterprise systems. I am passionate about writing clean, maintainable code and collaborating in agile teams.
 
 Thank you for considering my application. I hope to have the chance to discuss my qualifications with you in an interview.
 

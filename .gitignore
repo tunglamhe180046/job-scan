@@ -18,6 +18,8 @@ user_data/
 reports/
 *.xlsx
 *.csv
+~$*
+*.tmp
 temp_*
 backup_*
 
