@@ -98,7 +98,7 @@ class ApplyAssistant:
 
 I am very excited to apply for the {title} position at {company_name}. As an AI Agent Engineer at Minh Bach JSC specializing in enterprise digital transformation and full-stack software development, I possess deep technical expertise in Python, LLMs, RAG, Multimodal Vision pipelines, Agent Memory Management (Short-term/Long-term), and Skill Orchestration (Waterfall Skills architecture).
 
-In my recent work, I built Python and Node.js MCP tools enabling LLMs (Claude, Gemini) to parse visual documents and perform in-place document manipulation on complex Office files without data loss, and developed full-stack multi-agent systems featuring granular RBAC and clean system architecture. Additionally, my Software Engineering degree from FPT University equips me with strong foundations in Python, Node.js, Java (Spring Boot), ReactJS, and .NET.
+In my recent work, I authored open-source architectures including Word Tools (an in-place DOCX surgical engine with optimistic locking for AI agents) and Google Maps Radar (a multimodal spatial intelligence and multi-agent system). Additionally, my Software Engineering degree from FPT University equips me with strong foundations in Python, Node.js, Java (Spring Boot), ReactJS, and .NET.
 
 I am confident that my practical experience in AI Agent engineering, RAG, and workflow optimization will allow me to create immediate impact at {company_name}. Thank you for your time and consideration.
 
