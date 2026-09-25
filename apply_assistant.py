@@ -96,7 +96,7 @@ class ApplyAssistant:
         if any(k in title_lower for k in ["ai", "workflow", "prompt", "agent", "llm", "rag"]):
             return f"""Dear Hiring Manager,
 
-I am very excited to apply for the {title} position at {company_name}. As an AI Agent Engineer at Minh Bach JSC specializing in enterprise digital transformation and full-stack software development, I possess deep technical expertise in Python, LLMs, RAG, Multimodal Vision pipelines, Agent Memory Management (Short-term/Long-term), and Skill Orchestration (Waterfall Skills architecture).
+I am very excited to apply for the {title} position at {company_name}. As an AI Agent Engineer at Minh Bao Study Abroad specializing in enterprise digital transformation and full-stack software development, I possess deep technical expertise in Python, LLMs, RAG, Multimodal Vision pipelines, Agent Memory Management (Short-term/Long-term), and Skill Orchestration (Waterfall Skills architecture).
 
 In my recent work, I authored open-source architectures including Word Tools (an in-place DOCX surgical engine with optimistic locking for AI agents) and Google Maps Radar (a multimodal spatial intelligence and multi-agent system). Additionally, my Software Engineering degree from FPT University equips me with strong foundations in Python, Node.js, Java (Spring Boot), ReactJS, and .NET.
 
